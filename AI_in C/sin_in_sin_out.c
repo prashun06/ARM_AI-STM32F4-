@@ -1,6 +1,6 @@
 
 #include "sin_in_sin_out.h"
-#include <math.h>
+
 
 double sig_in_sig_out_nn(double input, double weight){
 	return (input*weight); 
@@ -81,6 +81,109 @@ double find_err(double yhat, double y){
 
 double find_error(double input, double weight, double expected_value){
 
-	return powf(((input*weight)-expected_value),2);
+	return powf(((input*weight)-expected_value),2);  //for all the iter
+}
+
+void broute_force_learning(double input,
+														double weight,
+															double expected_value,
+																double step_amount,
+																	uint16_t iter){
+	double prediction, error;
+	double up_prediction, down_predicton, up_error, down_error;
+	
+	for (int i=0; i<iter;i++){
+		prediction=input*weight;
+		error= powf(((input*weight)-expected_value),2);
+		
+		printf("Error : %f  prediction :%f ....\r\n",error,prediction);
+		
+		up_prediction = input*(weight+step_amount);
+		up_error = powf((up_prediction-expected_value),2);
+		down_predicton = input*(weight-step_amount);
+		down_error = powf((down_predicton-expected_value),2);
+		
+		if(down_error<up_error){
+			weight = weight-step_amount;
+		}
+		if(down_error>up_error){
+			weight = weight+step_amount;
+		}
+	}
+}
+																	
+void normalization(double *input_vector, double *output_vector, uint16_t LEN){
+	//find the max 
+	double max=input_vector[0];
+	for(int i=0;i<LEN; i++){
+		if(input_vector[i]>max){
+			max = input_vector[i];
+		}
+	}
+	
+	for(int i=0;i<LEN; i++){
+		output_vector[i]=input_vector[i]/max;
+	}
+}
+
+void random_weight_gen_matrix(uint32_t HID_LEN, uint32_t INPUT_LEN, double weight_matrix[HID_LEN][INPUT_LEN]){
+
+	double d_rand;
+	//seed random number generator 
+	srand(1);
+	//generate random number for the weight 
+	for(int i=0; i<HID_LEN;i++){
+		for(int j=0;j<INPUT_LEN;j++){
+			d_rand = (rand()%10);
+			d_rand =d_rand/10;
+			
+			weight_matrix[i][j]=d_rand;
+		}
+	}
+}
+
+double sigmoid(double x){
+
+	return  1/(1+exp(-x));
+}
+
+void vector_sigmoid(double *input_vector, double *output_vector, uint16_t LEN){
+	for(int i=0;i<LEN;i++){
+		output_vector[i]=sigmoid(input_vector[i]);
+	}
+}
+
+void normalization_matrix(uint32_t ROW, 
+														uint32_t COLUMN, 
+															double input_matrix[ROW][COLUMN], 	
+																double output_matrix[ROW][COLUMN]){
+	//find the max 
+	double max=-99999999;
+	for(int i=0;i<ROW; i++){
+		for(int j=0;j<COLUMN;j++)
+			if(input_matrix[i][j]>max){
+				max = input_matrix[i][j]; //take the max value of whole matrix
+		}
+	}
+	
+	for(int i=0;i<ROW; i++){
+		for(int j=0;j<COLUMN;j++){
+			output_matrix[i][j]=input_matrix[i][j]/max;
+		}	
+	}
+}
+
+void random_weight_gen_vector(double *weight_vector, uint32_t LEN){
+
+	double d_rand;
+	//seed random number generator 
+	srand(1);
+	//generate random number for the weight 
+	for(int i=0; i<LEN;i++){
+			d_rand = (rand()%10);
+			d_rand =d_rand/10;
+			
+			weight_vector[i]=d_rand;
+	}
 }
 

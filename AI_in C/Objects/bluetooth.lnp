@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp.sp
+--cpu=Cortex-M4.fp
 ".\objects\main.o"
 ".\objects\sin_in_sin_out.o"
 ".\objects\usart.o"

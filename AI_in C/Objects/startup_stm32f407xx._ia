@@ -1,11 +1,10 @@
---cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --diag_suppress=A1950W
+--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g
 -I.\RTE\_Target_1
--IC:\Users\Asus\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
--IC:\Users\Asus\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
---pd "__UVISION_VERSION SETA 538"
+-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+--pd "__UVISION_VERSION SETA 526"
 --pd "_RTE_ SETA 1"
 --pd "STM32F407xx SETA 1"
---pd "_RTE_ SETA 1"
 --list .\listings\startup_stm32f407xx.lst
 --xref -o .\objects\startup_stm32f407xx.o
---depend .\objects\startup_stm32f407xx.d "RTE/Device/STM32F407VETx/startup_stm32f407xx.s"
+--depend .\objects\startup_stm32f407xx.d "RTE\Device\STM32F407VETx\startup_stm32f407xx.s"

@@ -31,8 +31,25 @@ extern void hid_nn(double *input_vector,
 																double *output_vector);																
 
 extern double find_err(double yhat, double y);
-extern double find_error(double input, double weight, double expected_value);															
-//
+extern double find_error(double input, double weight, double expected_value);				
+
+extern void broute_force_learning(double input,
+														double weight,
+															double expected_value,
+																double step_amount,
+																	uint16_t iter);															
+
+extern void normalization(double *input_vector, double *output_vector, uint16_t LEN);
+extern void random_weight_gen_matrix(uint32_t HID_LEN, uint32_t INPUT_LEN, double weight_matrix[HID_LEN][INPUT_LEN]);
+extern void vector_sigmoid(double *input_vector, double *output_vector, uint16_t LEN);
+extern void random_weight_gen_vector(double *weight_vector, uint32_t LEN);
+extern void normalization_matrix(uint32_t ROW, 
+																	uint32_t COLUMN, 
+																		double input_matrix[ROW][COLUMN], 	
+																			double output_matrix[ROW][COLUMN]);
+													
+extern double sigmoid(double x);
+																		//
 
 
 																
